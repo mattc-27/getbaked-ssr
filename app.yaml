@@ -1,0 +1,30 @@
+runtime: nodejs18
+env: standard
+instance_class: F1
+handlers:
+  - url: /api/backend_test
+    script: auto
+  - url: /api/backend_test_two/.*
+    script: auto
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+  - url: /blog
+    static_files: dist/blog/index.html
+    upload: dist/blog/index.html
+  - url: /blog/view_recipe/.*
+    static_files: dist/blog/index.html
+    upload: dist/blog/index.html
+  - url: /(.*)
+    static_files: dist/\1
+    upload: dist/.*
+  - url: .*
+    script: auto
+  - url: .*
+    script: auto
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+service_account: baking-site-411100@appspot.gserviceaccount.com
